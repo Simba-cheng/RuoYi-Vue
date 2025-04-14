@@ -63,7 +63,6 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int insert${ClassName}(${ClassName} ${className}) {
-        ## return ${className}Mapper.insert${ClassName}(${className});
         return ${className}Mapper.insert(${className});
     }
 
