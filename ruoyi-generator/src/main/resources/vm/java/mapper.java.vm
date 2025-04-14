@@ -51,7 +51,7 @@ public interface ${ClassName}Mapper {
      * @param ${className} ${functionName}
      * @return 结果
      */
-    int insertBatch(${ClassName} ${className});
+    int insertBatch(List<${ClassName}> ${className}List);
 
     /**
      * 修改${functionName}

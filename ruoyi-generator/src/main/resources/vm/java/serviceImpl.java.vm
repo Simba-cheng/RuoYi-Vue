@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 #if($table.sub)
 import java.util.ArrayList;
 import com.ruoyi.common.utils.StringUtils;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Propagation;
 import ${packageName}.domain.${subClassName};
 #end
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.domain.${ClassName};
 import ${packageName}.service.I${ClassName}Service;
