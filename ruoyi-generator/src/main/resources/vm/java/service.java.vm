@@ -40,7 +40,7 @@ public interface I${ClassName}Service {
      * @param ${className} ${functionName}
      * @return 结果
      */
-    int insertBatch(List<${ClassName}> ${className}s);
+    int insertBatch${ClassName}(List<${ClassName}> ${className}s);
 
     /**
      * 修改${functionName}
