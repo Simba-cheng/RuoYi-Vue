@@ -38,22 +38,6 @@ public interface ${ClassName}Mapper {
     int insert${ClassName}(${ClassName} ${className});
 
     /**
-     * 新增${functionName}
-     *
-     * @param ${className} ${functionName}
-     * @return 结果
-     */
-    int insert(${ClassName} ${className});
-
-    /**
-     * 批量新增${functionName}
-     *
-     * @param ${className} ${functionName}
-     * @return 结果
-     */
-    int insertBatch(List<${ClassName}> ${className}List);
-
-    /**
      * 修改${functionName}
      * 
      * @param ${className} ${functionName}

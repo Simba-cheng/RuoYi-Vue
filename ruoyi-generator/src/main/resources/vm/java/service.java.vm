@@ -35,14 +35,6 @@ public interface I${ClassName}Service {
     int insert${ClassName}(${ClassName} ${className});
 
     /**
-     * 新增${functionName}
-     *
-     * @param ${className} ${functionName}
-     * @return 结果
-     */
-    int insertBatch${ClassName}(List<${ClassName}> ${className}s);
-
-    /**
      * 修改${functionName}
      *
      * @param ${className} ${functionName}

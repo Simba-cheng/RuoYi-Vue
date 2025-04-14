@@ -1,28 +1,28 @@
 package ${packageName}.service.impl;
 
 import java.util.List;
-#foreach ($column in $columns)
-#if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
-import com.ruoyi.common.utils.DateUtils;
-#break
-#end
-#end
-import javax.annotation.Resource;
+    #foreach ($column in $columns)
+        #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
+        import com.ruoyi.common.utils.DateUtils;
+            #break
+        #end
+    #end
 import org.springframework.stereotype.Service;
-#if($table.sub)
-import java.util.ArrayList;
-import com.ruoyi.common.utils.StringUtils;
-import ${packageName}.domain.${subClassName};
-#end
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.annotation.Propagation;
+    #if($table.sub)
+    import java.util.ArrayList;
+
+    import com.ruoyi.common.utils.StringUtils;
+    import org.springframework.transaction.annotation.Transactional;
+    import ${packageName}.domain.${subClassName};
+    #end
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.domain.${ClassName};
 import ${packageName}.service.I${ClassName}Service;
+import javax.annotation.Resource;
 
 /**
  * ${functionName}Service业务层处理
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
@@ -34,7 +34,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 查询${functionName}
-     * 
+     *
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return ${functionName}
      */
@@ -45,7 +45,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 查询${functionName}列表
-     * 
+     *
      * @param ${className} ${functionName}
      * @return ${functionName}
      */
@@ -56,61 +56,107 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     /**
      * 新增${functionName}
-     * 
+     *
      * @param ${className} ${functionName}
      * @return 结果
      */
+        #if($table.sub)
+        @Transactional
+        #end
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int insert${ClassName}(${ClassName} ${className}) {
-        return ${className}Mapper.insert(${className});
-    }
-
-    /**
-     * 批量新增${functionName}
-     *
-     * @param ${className}List ${functionName}列表
-     * @return 结果
-     */
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public int insertBatch${ClassName}(List<${ClassName}> ${className}List) {
-        return ${className}Mapper.insertBatch(${className}List);
+        #foreach ($column in $columns)
+            #if($column.javaField == 'createTime')
+                ${className}.setCreateTime(DateUtils.getNowDate());
+            #end
+        #end
+        #if($table.sub)
+            int rows = ${className}Mapper.insert${ClassName}(${className});
+            insert${subClassName}(${className});
+            return rows;
+        #else
+            return ${className}Mapper.insert${ClassName}(${className});
+        #end
     }
 
     /**
      * 修改${functionName}
-     * 
+     *
      * @param ${className} ${functionName}
      * @return 结果
      */
+        #if($table.sub)
+        @Transactional
+        #end
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int update${ClassName}(${ClassName} ${className}) {
+        #foreach ($column in $columns)
+            #if($column.javaField == 'updateTime')
+                ${className}.setUpdateTime(DateUtils.getNowDate());
+            #end
+        #end
+        #if($table.sub)
+                ${className}Mapper.delete${subClassName}By${subTableFkClassName}(${className}.get${pkColumn.capJavaField}())
+            ;
+            insert${subClassName}(${className});
+        #end
         return ${className}Mapper.update${ClassName}(${className});
     }
 
     /**
      * 批量删除${functionName}
-     * 
+     *
      * @param ${pkColumn.javaField}s 需要删除的${functionName}主键
      * @return 结果
      */
+        #if($table.sub)
+        @Transactional
+        #end
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaType}[] ${pkColumn.javaField}s) {
+        #if($table.sub)
+                ${className}Mapper.delete${subClassName}By${subTableFkClassName}s(${pkColumn.javaField}s);
+        #end
         return ${className}Mapper.delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaField}s);
     }
 
     /**
      * 删除${functionName}信息
-     * 
+     *
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return 结果
      */
+        #if($table.sub)
+        @Transactional
+        #end
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int delete${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
+        #if($table.sub)
+                ${className}Mapper.delete${subClassName}By${subTableFkClassName}(${pkColumn.javaField});
+        #end
         return ${className}Mapper.delete${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField});
     }
+    #if($table.sub)
+
+        /**
+         * 新增${subTable.functionName}信息
+         *
+         * @param ${className} ${functionName}对象
+         */
+        public void insert${subClassName}(${ClassName} ${className}) {
+            List<${subClassName}> ${subclassName}List = ${className}.get${subClassName}List();
+            ${pkColumn.javaType} ${pkColumn.javaField} = ${className}.get${pkColumn.capJavaField}();
+            if (StringUtils.isNotNull(${subclassName}List)) {
+                List<${subClassName}> list = new ArrayList<${subClassName}>();
+                for (${subClassName} ${subclassName} :${subclassName}List)
+                {
+                    ${subclassName}.set${subTableFkClassName}(${pkColumn.javaField});
+                    list.add(${subclassName});
+                }
+                if (list.size() > 0) {
+                        ${className}Mapper.batch${subClassName}(list);
+                }
+            }
+        }
+    #end
 }

@@ -11,7 +11,6 @@ import com.ruoyi.common.core.domain.BaseEntity;
 #elseif($table.tree)
 import com.ruoyi.common.core.domain.TreeEntity;
 #end
-import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
  * ${functionName}对象 ${tableName}
@@ -24,7 +23,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
-@TableName("${tableName}")
 public class ${ClassName} extends ${Entity} {
     private static final long serialVersionUID = 1L;
 
