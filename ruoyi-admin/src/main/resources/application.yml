@@ -17,6 +17,8 @@ ruoyi:
 server:
   # 服务器的HTTP端口，默认为8080
   port: 8080
+  # 请求头大小
+  max-http-header-size: 40960
   servlet:
     # 应用的访问路径
     context-path: /
