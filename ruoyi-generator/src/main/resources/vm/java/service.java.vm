@@ -2,6 +2,7 @@ package ${packageName}.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import ${packageName}.domain.${ClassName};
+import ${packageName}.dto.${ClassName}QueryReq;
 import org.springblade.core.mp.support.Query;
 import org.springblade.common.base.ZxhcService;
 

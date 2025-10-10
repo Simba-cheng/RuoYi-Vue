@@ -21,6 +21,7 @@ import ${packageName}.domain.${subClassName};
 #end
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.domain.${ClassName};
+import ${packageName}.dto.${ClassName}QueryReq;
 import ${packageName}.service.${ClassName}Service;
 
 /**

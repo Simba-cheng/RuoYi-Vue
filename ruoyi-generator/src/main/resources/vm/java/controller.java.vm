@@ -2,6 +2,7 @@ package ${packageName}.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import ${packageName}.domain.${ClassName};
+import ${packageName}.dto.${ClassName}QueryReq;
 import ${packageName}.service.${ClassName}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
