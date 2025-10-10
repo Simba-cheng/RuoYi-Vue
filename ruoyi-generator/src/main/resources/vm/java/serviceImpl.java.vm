@@ -32,6 +32,7 @@ import ${packageName}.service.${ClassName}Service;
 @Slf4j
 @Service
 public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper, ${ClassName}> implements ${ClassName}Service {
+
     @Resource
     private ${ClassName}Mapper ${className}Mapper;
 
