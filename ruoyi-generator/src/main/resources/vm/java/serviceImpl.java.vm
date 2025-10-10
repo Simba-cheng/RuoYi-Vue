@@ -3,17 +3,14 @@ package ${packageName}.service.impl;
 import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import org.springblade.core.mp.support.Query;
 import javax.annotation.Resource;
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
 #break
 #end
 #end
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-import org.springblade.core.mp.support.Query;
 import org.springblade.common.base.ZxhcServiceImpl;
 #if($table.sub)
 import java.util.ArrayList;
@@ -102,7 +99,7 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
         ${className}Mapper.delete${subClassName}By${subTableFkClassName}(${className}.get${pkColumn.capJavaField}());
         insert${subClassName}(${className});
 #end
-        ${className}Mapper.update(${className});
+        ${className}Mapper.updateById(${className});
         return ${className};
     }
 
