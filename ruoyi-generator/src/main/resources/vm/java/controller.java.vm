@@ -12,10 +12,6 @@ import org.springblade.core.tool.api.R;
 import javax.annotation.Resource;
 import java.util.List;
 
-#if($table.crud || $table.sub)
-#elseif($table.tree)
-#end
-
 /**
  * ${functionName}
  *
@@ -34,17 +30,17 @@ public class ${ClassName}Controller {
      * 分页查询${functionName}
      */
     @GetMapping("/select/page")
-#if($table.crud || $table.sub)
+###if($table.crud || $table.sub)
     public R<IPage<${ClassName}>> selectPage(${ClassName} ${className}, Query query) {
         IPage<${ClassName}> paged = ${className}Service.selectPage(Condition.getPage(query), ${className});
         return R.data(paged);
     }
-#elseif($table.tree)
-    public AjaxResult list(${ClassName} ${className}) {
-        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-        return success(list);
-    }
-#end
+###elseif($table.tree)
+##    public AjaxResult list(${ClassName} ${className}) {
+##        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+##        return success(list);
+##    }
+###end
 
     /**
      * 获取${functionName}详细信息

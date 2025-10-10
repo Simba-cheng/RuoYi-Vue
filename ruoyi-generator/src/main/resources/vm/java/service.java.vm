@@ -38,9 +38,4 @@ public interface ${ClassName}Service extends ZxhcService<${ClassName}>{
      * 批量删除${functionName}
      */
     void deleteBatch(List<${pkColumn.javaType}> ${pkColumn.javaField}s);
-
-    /**
-     * 删除${functionName}信息
-     */
-    void deleteBy${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 }
