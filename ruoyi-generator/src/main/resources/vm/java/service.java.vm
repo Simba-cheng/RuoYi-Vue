@@ -22,7 +22,7 @@ public interface ${ClassName}Service extends ZxhcService<${ClassName}>{
     /**
      * 分页查询${functionName}
      */
-    IPage<${ClassName}> selectPage(IPage<${ClassName}> page, ${ClassName} pageRequest);
+    IPage<${ClassName}> selectPage(IPage<${ClassName}> page, ${ClassName}QueryReq queryReq);
 
     /**
      * 新增${functionName}

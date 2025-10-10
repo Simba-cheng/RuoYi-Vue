@@ -1,0 +1,24 @@
+package ${packageName}.dto;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+import lombok.Data;
+
+/**
+ * ${functionName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+public class ${ClassName}QueryReq {
+
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField))
+    /** $column.columnComment */
+    private $column.javaType $column.javaField;
+
+#end
+#end
+}

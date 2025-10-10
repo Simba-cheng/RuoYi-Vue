@@ -48,13 +48,13 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
      * 查询${functionName}列表
      */
     @Override
-    public IPage<${ClassName}> selectPage(IPage<${ClassName}> page, ${ClassName} pageRequest) {
+    public IPage<${ClassName}> selectPage(IPage<${ClassName}> page, ${ClassName}QueryReq queryReq) {
         LambdaQueryWrapper<${ClassName}> queryWrapper = new LambdaQueryWrapper<>();
 
         /*
-            queryWrapper.eq(StringUtils.isNotBlank(pageRequest.getMachineNestId()), MachineNestUavHopLatestRecord::getMachineNestId, pageRequest.getMachineNestId())
-                .eq(StringUtils.isNotBlank(pageRequest.getCreateDept()), MachineNestUavHopLatestRecord::getCreateDept, pageRequest.getCreateDept())
-                .eq(StringUtils.isNotBlank(pageRequest.getCreateUser()), MachineNestUavHopLatestRecord::getCreateUser, pageRequest.getCreateUser());
+            queryWrapper.eq(StringUtils.isNotBlank(queryReq.getMachineNestId()), MachineNestUavHopLatestRecord::getMachineNestId, queryReq.getMachineNestId())
+                .eq(StringUtils.isNotBlank(queryReq.getCreateDept()), MachineNestUavHopLatestRecord::getCreateDept, queryReq.getCreateDept())
+                .eq(StringUtils.isNotBlank(queryReq.getCreateUser()), MachineNestUavHopLatestRecord::getCreateUser, queryReq.getCreateUser());
             queryWrapper.orderByDesc(MachineNestUavHopLatestRecord::getCreateTime);
          */
 

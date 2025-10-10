@@ -135,6 +135,7 @@ public class VelocityUtils
             useWebType = "vm/vue/v3";
         }
         List<String> templates = new ArrayList<String>();
+        templates.add("vm/java/query-req.java.vm");
         templates.add("vm/java/domain.java.vm");
         templates.add("vm/java/mapper.java.vm");
         templates.add("vm/java/service.java.vm");
@@ -179,6 +180,9 @@ public class VelocityUtils
         String mybatisPath = MYBATIS_PATH + "/" + moduleName;
         String vuePath = "vue";
 
+        if (template.contains("vm/java/query-req.java.vm")) {
+            fileName = StringUtils.format("{}/dto/{}QueryReq.java", javaPath, className);
+        }
         if (template.contains("domain.java.vm"))
         {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);

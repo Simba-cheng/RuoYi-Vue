@@ -31,8 +31,8 @@ public class ${ClassName}Controller {
      */
     @GetMapping("/select/page")
 ###if($table.crud || $table.sub)
-    public R<IPage<${ClassName}>> selectPage(${ClassName} ${className}, Query query) {
-        IPage<${ClassName}> paged = ${className}Service.selectPage(Condition.getPage(query), ${className});
+    public R<IPage<${ClassName}>> selectPage(${ClassName}QueryReq queryReq, Query query) {
+        IPage<${ClassName}> paged = ${className}Service.selectPage(Condition.getPage(query), queryReq);
         return R.data(paged);
     }
 ###elseif($table.tree)
