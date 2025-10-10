@@ -28,7 +28,7 @@ public interface ${ClassName}Service extends ZxhcService<${ClassName}>{
      * @param ${className} ${functionName}
      * @return ${functionName}集合
      */
-    IPage<${ClassName}> selectPage(${ClassName} ${className}, Query query);
+    IPage<${ClassName}> selectPage(IPage<${ClassName}> page, ${ClassName} pageRequest);
 
     /**
      * 新增${functionName}

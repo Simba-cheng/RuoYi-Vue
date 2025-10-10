@@ -5,6 +5,7 @@ import ${packageName}.domain.${ClassName};
 import ${packageName}.service.${ClassName}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.tool.api.R;
 
@@ -35,7 +36,7 @@ public class ${ClassName}Controller {
     @GetMapping("/select/page")
 #if($table.crud || $table.sub)
     public R<IPage<${ClassName}>> selectPage(${ClassName} ${className}, Query query) {
-        IPage<${ClassName}> paged = ${className}Service.selectPage(${className}, query);
+        IPage<${ClassName}> paged = ${className}Service.selectPage(Condition.getPage(query), ${className});
         return R.data(paged);
     }
 #elseif($table.tree)

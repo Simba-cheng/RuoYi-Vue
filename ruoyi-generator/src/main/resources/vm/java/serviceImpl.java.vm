@@ -2,6 +2,7 @@ package ${packageName}.service.impl;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springblade.core.mp.support.Query;
 import javax.annotation.Resource;
 #foreach ($column in $columns)
@@ -25,7 +26,7 @@ import ${packageName}.service.${ClassName}Service;
 
 /**
  * ${functionName}Service业务层处理
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
@@ -37,7 +38,7 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
 
     /**
      * 查询${functionName}
-     * 
+     *
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return ${functionName}
      */
@@ -48,18 +49,28 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
 
     /**
      * 查询${functionName}列表
-     * 
+     *
      * @param ${className} ${functionName}
      * @return ${functionName}
      */
     @Override
-    public IPage<${ClassName}> selectPage(${ClassName} ${className}, Query query) {
-        return ${className}Mapper.selectPage(${className});
+    public IPage<${ClassName}> selectPage(IPage<${ClassName}> page, ${ClassName} pageRequest) {
+
+        LambdaQueryWrapper<${ClassName}> queryWrapper = new LambdaQueryWrapper<>();
+
+        /*
+            queryWrapper.eq(StringUtils.isNotBlank(pageRequest.getMachineNestId()), MachineNestUavHopLatestRecord::getMachineNestId, pageRequest.getMachineNestId())
+                .eq(StringUtils.isNotBlank(pageRequest.getCreateDept()), MachineNestUavHopLatestRecord::getCreateDept, pageRequest.getCreateDept())
+                .eq(StringUtils.isNotBlank(pageRequest.getCreateUser()), MachineNestUavHopLatestRecord::getCreateUser, pageRequest.getCreateUser());
+            queryWrapper.orderByDesc(MachineNestUavHopLatestRecord::getCreateTime);
+         */
+
+        return this.getBaseMapper().selectPage(page, queryWrapper);
     }
 
     /**
      * 新增${functionName}
-     * 
+     *
      * @param ${className} ${functionName}
      * @return 结果
      */
@@ -78,13 +89,14 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
         insert${subClassName}(${className});
         return rows;
 #else
-        return ${className}Mapper.insert(${className});
+        ${className}Mapper.insert(${className});
+        return ${className};
 #end
     }
 
     /**
      * 修改${functionName}
-     * 
+     *
      * @param ${className} ${functionName}
      * @return 结果
      */
@@ -102,12 +114,13 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
         ${className}Mapper.delete${subClassName}By${subTableFkClassName}(${className}.get${pkColumn.capJavaField}());
         insert${subClassName}(${className});
 #end
-        return ${className}Mapper.update(${className});
+        ${className}Mapper.update(${className});
+        return ${className};
     }
 
     /**
      * 批量删除${functionName}
-     * 
+     *
      * @param ${pkColumn.javaField}s 需要删除的${functionName}主键
      * @return 结果
      */
@@ -116,15 +129,12 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
 #end
     @Override
     public void deleteBatch(List<${pkColumn.javaType}> ${pkColumn.javaField}s) {
-#if($table.sub)
-        ${className}Mapper.delete${subClassName}By${subTableFkClassName}s(${pkColumn.javaField}s);
-#end
-        ${className}Mapper.deleteBatchBy${pkColumn.capJavaField}s(${pkColumn.javaField}s);
+        ${className}Mapper.deleteBatchIds(${pkColumn.javaField}s);
     }
 
     /**
      * 删除${functionName}信息
-     * 
+     *
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return 结果
      */
@@ -142,7 +152,7 @@ public class ${ClassName}ServiceImpl extends ZxhcServiceImpl<${ClassName}Mapper,
 
     /**
      * 新增${subTable.functionName}信息
-     * 
+     *
      * @param ${className} ${functionName}对象
      */
     public void insert(${ClassName} ${className}) {

@@ -23,7 +23,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @TableName("${tableName}")
 @EqualsAndHashCode(callSuper = true)
-public class ${ClassName}  extends ZxhcEntity implements Serializable {
+public class ${ClassName} extends ZxhcEntity implements Serializable {
 
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
