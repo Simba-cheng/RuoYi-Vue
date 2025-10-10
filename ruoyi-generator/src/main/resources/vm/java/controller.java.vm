@@ -1,24 +1,27 @@
 package ${packageName}.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.service.${ClassName}Service;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.tool.api.R;
 
 import javax.annotation.Resource;
+import java.util.List;
 
-import ${packageName}.domain.${ClassName};
-import ${packageName}.service.${ClassName}Service;
 #if($table.crud || $table.sub)
 #elseif($table.tree)
 #end
 
 /**
- * ${functionName}Controller
+ * ${functionName}
  *
  * @author ${author}
  * @date ${datetime}
  */
+@Slf4j
 @RestController
 @RequestMapping("/${moduleName}/${businessName}")
 public class ${ClassName}Controller {
@@ -32,7 +35,7 @@ public class ${ClassName}Controller {
     @GetMapping("/select/page")
 #if($table.crud || $table.sub)
     public R<IPage<${ClassName}>> selectPage(${ClassName} ${className}, Query query) {
-        IPage<${ClassName}> paged = ${className}Service.selectPage${ClassName}List(${className}, query);
+        IPage<${ClassName}> paged = ${className}Service.selectPage(${className}, query);
         return R.data(paged);
     }
 #elseif($table.tree)
@@ -47,7 +50,7 @@ public class ${ClassName}Controller {
      */
     @GetMapping(value = "/get")
     public R<${ClassName}> getInfo(@RequestParam(value = "${pkColumn.javaField}") ${pkColumn.javaType} ${pkColumn.javaField}) {
-        return R.data(${className}Service.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField}));
+        return R.data(${className}Service.selectBy${pkColumn.capJavaField}(${pkColumn.javaField}));
     }
 
     /**
@@ -55,7 +58,7 @@ public class ${ClassName}Controller {
      */
     @PostMapping(value = "/add")
     public R<${ClassName}> add(@RequestBody ${ClassName} ${className}) {
-        return R.data(${className}Service.insert${ClassName}(${className}));
+        return R.data(${className}Service.insert(${className}));
     }
 
     /**
@@ -63,14 +66,14 @@ public class ${ClassName}Controller {
      */
     @PostMapping(value = "/edit")
     public R<${ClassName}> edit(@RequestBody ${ClassName} ${className}) {
-        return R.data(${className}Service.update${ClassName}(${className}));
+        return R.data(${className}Service.update(${className}));
     }
 
     /**
      * 删除${functionName}
      */
-	@PostMapping("/delete")
-    public void remove(@RequestParam(value = "${pkColumn.javaField}") ${pkColumn.javaType}[] ${pkColumn.javaField}s) {
-        ${className}Service.delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaField}s);
+	@PostMapping("/delete/batch")
+    public void remove(@RequestParam(value = "${pkColumn.javaField}s") List<${pkColumn.javaType}> ${pkColumn.javaField}s) {
+        ${className}Service.deleteBatch(${pkColumn.javaField}s);
     }
 }
