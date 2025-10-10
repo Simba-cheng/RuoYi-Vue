@@ -16,49 +16,31 @@ import java.util.List;
 public interface ${ClassName}Service extends ZxhcService<${ClassName}>{
     /**
      * 查询${functionName}
-     * 
-     * @param ${pkColumn.javaField} ${functionName}主键
-     * @return ${functionName}
      */
     ${ClassName} selectBy${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 分页查询${functionName}
-     * 
-     * @param ${className} ${functionName}
-     * @return ${functionName}集合
      */
     IPage<${ClassName}> selectPage(IPage<${ClassName}> page, ${ClassName} pageRequest);
 
     /**
      * 新增${functionName}
-     * 
-     * @param ${className} ${functionName}
-     * @return 结果
      */
      ${ClassName} insert(${ClassName} ${className});
 
     /**
      * 修改${functionName}
-     * 
-     * @param ${className} ${functionName}
-     * @return 结果
      */
      ${ClassName} update(${ClassName} ${className});
 
     /**
      * 批量删除${functionName}
-     * 
-     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键集合
-     * @return 结果
      */
     void deleteBatch(List<${pkColumn.javaType}> ${pkColumn.javaField}s);
 
     /**
      * 删除${functionName}信息
-     * 
-     * @param ${pkColumn.javaField} ${functionName}主键
-     * @return 结果
      */
     void deleteBy${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 }
